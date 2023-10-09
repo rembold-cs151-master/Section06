@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
   <meta name="author" content="Jed Rembold and Eric Roberts">
-  <title>Title</title>
+  <title>Section 06: Interactive Graphics</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -16,11 +16,8 @@
     div.columns{display: flex; gap: min(4vw, 1.5em);}
     div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    /* The extra [class] is a hack that increases specificity enough to
-       override a similar rule in reveal.js */
-    ul.task-list[class]{list-style: none;}
+    ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
-      font-size: inherit;
       width: 0.8em;
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
@@ -30,22 +27,75 @@
   <link rel="stylesheet" href="./js/revealjs/../../css/highlight/monokai.css">
   <link rel="stylesheet" href="css/codetrace.css"/>
   <link rel="stylesheet" href="css/roberts.css"/>
+  <link rel="stylesheet" href="DrawYinYangLayers.css"/>
 </head>
 <body>
   <div class="reveal">
     <div class="slides">
 
 <section id="title-slide">
-  <h1 class="title">Title</h1>
+  <h1 class="title">Section 06: Interactive Graphics</h1>
   <p class="author">Jed Rembold and Eric Roberts</p>
-  <p class="date">Date</p>
+  <p class="date">Week of October 9th</p>
 </section>
 
 <section id="problem-1" class="slide level2">
 <h2>Problem 1</h2>
+<div class="cols">
+<div class="col">
 <ul>
-<li>Is here!</li>
+<li>Your first task of the day is to recreate a Yin-Yang symbol,
+centered in the window, as seen to the right.</li>
+<li>At first glance, this may not look possible given the
+<code class="python">GObject</code>s discussed so far in class, but
+clever layering of known shapes will get you there!</li>
 </ul>
+</div>
+<div class="col">
+<svg ViewBox="0 0 400 400" width="70%">
+<rect width="400" height="400" fill="white" />
+<circle cx="200" cy="200" r="160" />
+<rect x="200" y="40" width="160" height="320" fill="white" />
+<circle cx="200" cy="120" r="80" />
+<circle cx="200" cy="280" r="80" fill="white" />
+<circle cx="200" cy="280" r="20" />
+<circle cx="200" cy="120" r="20" fill="white"/>
+<circle cx="200" cy="200" r="160" fill="none" stroke-width="3" stroke="black"/>
+</svg>
+</div>
+</div>
+</section>
+<section id="try-it" class="slide level2"
+data-state="DrawYinYangLayersTrace">
+<h2 data-state="DrawYinYangLayersTrace">Try it!</h2>
+<table style="margin:auto;">
+<tbody style="border:none; background-color:#272822;">
+<tr style="border:none; background-color:#272822; padding:0px;">
+<td colspan="2" style="border:none; background-color:#272822; padding:0px;">
+<div id="DrawYinYangCanvas" class="CTCanvas"
+style="border:none; background-color:#272822;">
+
+</div>
+</td>
+</tr>
+<tr>
+<td style="text-align:center; width:948px;">
+<table class="CTControlStrip">
+<tbody>
+<tr>
+<td>
+<img id=DrawYinYangResetButton
+     style="width:100px;"
+     src="images/ResetControl.png"
+     alt="ResetButton" />
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
 </section>
     </div>
   </div>
@@ -64,9 +114,17 @@
   <!--<script src="./js/revealjs/../other_plugins/reveald3/reveald3.js"></script>,-->
   <script src="./js/revealjs/plugin/math/math.js"></script>
   <script src="./js/revealjs/plugin/highlight/highlight.js"></script>
+  <script src="./js/revealjs/../python_language.js"></script>
+
+  // Font Awesome Characters
+  <script src="https://kit.fontawesome.com/4bc05635b0.js" crossorigin="anonymous"></script>
 
   // Code Tracing
   <script src="./js/revealjs/../codetrace.js"></script>
+
+  <script src="./js/revealjs/../../js/pgl.js"></script>
+
+  <script src="DrawYinYangLayersTrace.js"></script>
 
   <script>
 
@@ -176,6 +234,11 @@
 		  <!--},-->
 		  CommonHTML: {scale: 80},
 		},
+          highlight: {
+            beforeHighlight: hljs => hljs.registerLanguage("mypython", function(hljs) {
+              console.log(mypythondef);
+              return mypythondef(hljs); } )
+          },
         // reveal.js plugins
         plugins: [
 		  RevealMath,
@@ -213,6 +276,19 @@
             // { src: "./js/revealjs/plugin/title-footer/title-footer.js", async: true, callback: function() { title_footer.initialize({css:"./js/revealjs/plugin/title-footer/title-footer.css"}); } },
 		],
       });
+  Reveal.addEventListener("DrawYinYangLayersTrace", DrawYinYangLayersDemo);
     </script>
+  <script>
+  // This is admitedly a very hacky way to achieve my pseudo code highlighting, but it works?
+    function remove_bars() {
+      var pseudoBlocks = document.getElementsByClassName("hljs-pseudo");
+      console.log(pseudoBlocks);
+      for ( var i = 0; i < pseudoBlocks.length; i++) {
+        pseudoBlocks[i].innerHTML = pseudoBlocks[i].innerHTML.replaceAll("\|\|\|", "");
+      }
+      }
+    // omg this is even more hacky now, but I need this to run after hljs has done its thing
+    setTimeout(remove_bars, 100);
+  </script>
     </body>
 </html>
