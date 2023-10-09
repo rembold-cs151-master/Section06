@@ -14,6 +14,7 @@ css:
   - DrawYinYangLayers.css
 tracejs:
   - DrawYinYangLayers
+  - StampSim
 extrajs:
   - js/pgl.js
 ---
@@ -73,4 +74,43 @@ extrajs:
 </table>
 
 
+## Problem 2
+::::::cols
+::::col
+<video data-autoplay loop src="./images/stamping_demo.webm" />
+::::
 
+::::{.col style='flex-grow:1.5'}
+- Many graphical programs have a stamping tool, where clicking the mouse will "stamp" a shape onto the scene.
+- Often, it is useful to have the shape of the stamp follow the user's cursor, so that the user can line it up exactly as they choose.
+- In this problem, you want to recreate the animation to the left, where clicking stamps a random shape (circle or square) in a random color to the screen.
+
+::::
+::::::
+
+## Are you Listening?
+- You need to accomplish two different forms of interaction in this problem:
+  - Updating the position of the stamp to follow the user's cursor
+  - Adding a new shape to the window when the user clicks
+- This suggests you may want to be listening to two different events. What might be good choices?
+
+
+## Considerations to Ponder
+- Make sure your listeners and callback functions are working with print statements before you start adding graphics!
+- The stamp should be centered on the cursor. How do you need to shift it to ensure this is so?
+- You have a few methods you can use to update the position of an object. Which will be most useful in this case?
+- You need to create a **new** object each time the stamp is clicked
+  - You can you ensure it is a circle 50% of the time and a square 50% of the time?
+  - How can you get it to be a random color?
+  - When you add the new object to the window, it will appear on top of the stamp, which looks odd. How could you fix this?
+
+
+## <i class="fa-solid fa-trophy fa-beat"></i> Challenge!
+- Add a feature so that if the use clicks on previously stamped object, the color of that original object changes to some new random color
+- In this case, a new object does **not** get created and added to the window. Only the color of the original shape is changed.
+
+
+## Test {data-state="StampSimTrace"}
+
+<div id="StampCanvas" class="CTCanvas"
+     style="border:none; background-color:white; width:100%; height:800px;"></div>

@@ -26,7 +26,6 @@ class DrawYinYang extends CodeTrace {
     constructor() {
         super("DrawYinYang");
         let gw = this.installGWindow("DrawYinYangCanvas");
-        console.log(gw);
         gw.setBackground(REVEAL_BGCOLOR);
         let canvas = gw._getCanvas();
         canvas.style.backgroundColor = REVEAL_BGCOLOR;

@@ -16,8 +16,11 @@
     div.columns{display: flex; gap: min(4vw, 1.5em);}
     div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
     ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
       width: 0.8em;
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
@@ -97,6 +100,76 @@ style="border:none; background-color:#272822;">
 </tbody>
 </table>
 </section>
+<section id="problem-2" class="slide level2">
+<h2>Problem 2</h2>
+<div class="cols">
+<div class="col">
+<video data-autoplay loop src="./images/stamping_demo.webm" />
+</div>
+<div class="col" style="flex-grow:1.5">
+<ul>
+<li>Many graphical programs have a stamping tool, where clicking the
+mouse will “stamp” a shape onto the scene.</li>
+<li>Often, it is useful to have the shape of the stamp follow the user’s
+cursor, so that the user can line it up exactly as they choose.</li>
+<li>In this problem, you want to recreate the animation to the left,
+where clicking stamps a random shape (circle or square) in a random
+color to the screen.</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="are-you-listening" class="slide level2">
+<h2>Are you Listening?</h2>
+<ul>
+<li>You need to accomplish two different forms of interaction in this
+problem:
+<ul>
+<li>Updating the position of the stamp to follow the user’s cursor</li>
+<li>Adding a new shape to the window when the user clicks</li>
+</ul></li>
+<li>This suggests you may want to be listening to two different events.
+What might be good choices?</li>
+</ul>
+</section>
+<section id="considerations-to-ponder" class="slide level2">
+<h2>Considerations to Ponder</h2>
+<ul>
+<li>Make sure your listeners and callback functions are working with
+print statements before you start adding graphics!</li>
+<li>The stamp should be centered on the cursor. How do you need to shift
+it to ensure this is so?</li>
+<li>You have a few methods you can use to update the position of an
+object. Which will be most useful in this case?</li>
+<li>You need to create a <strong>new</strong> object each time the stamp
+is clicked
+<ul>
+<li>You can you ensure it is a circle 50% of the time and a square 50%
+of the time?</li>
+<li>How can you get it to be a random color?</li>
+<li>When you add the new object to the window, it will appear on top of
+the stamp, which looks odd. How could you fix this?</li>
+</ul></li>
+</ul>
+</section>
+<section id="challenge" class="slide level2">
+<h2><i class="fa-solid fa-trophy fa-beat"></i> Challenge!</h2>
+<ul>
+<li>Add a feature so that if the use clicks on previously stamped
+object, the color of that original object changes to some new random
+color</li>
+<li>In this case, a new object does <strong>not</strong> get created and
+added to the window. Only the color of the original shape is
+changed.</li>
+</ul>
+</section>
+<section id="test" class="slide level2" data-state="StampSimTrace">
+<h2 data-state="StampSimTrace">Test</h2>
+<div id="StampCanvas" class="CTCanvas"
+style="border:none; background-color:white; width:100%; height:800px;">
+
+</div>
+</section>
     </div>
   </div>
 
@@ -125,6 +198,7 @@ style="border:none; background-color:#272822;">
   <script src="./js/revealjs/../../js/pgl.js"></script>
 
   <script src="DrawYinYangLayersTrace.js"></script>
+  <script src="StampSimTrace.js"></script>
 
   <script>
 
@@ -277,6 +351,7 @@ style="border:none; background-color:#272822;">
 		],
       });
   Reveal.addEventListener("DrawYinYangLayersTrace", DrawYinYangLayersDemo);
+  Reveal.addEventListener("StampSimTrace", StampSimDemo);
     </script>
   <script>
   // This is admitedly a very hacky way to achieve my pseudo code highlighting, but it works?
