@@ -73,6 +73,66 @@ extrajs:
 </tbody>
 </table>
 
+## Possible Solution
+```{.mypython style='max-height:800px'}
+from pgl import GWindow, GRect, GOval
+
+GW_WIDTH = 600
+GW_HEIGHT = GW_WIDTH
+RADIUS_L = 0.4 * GW_WIDTH
+RADIUS_M = 0.5 * RADIUS_L
+RADIUS_S = 0.25 * RADIUS_M
+
+def draw_yinyang():
+    """
+    This function draws a yinyang symbol to the window
+    """
+    gw = GWindow(GW_WIDTH, GW_HEIGHT)
+    cx = GW_WIDTH / 2
+    cy = GW_WIDTH / 2
+
+    # Large black circle
+    c1 = GOval(2 * RADIUS_L, 2 * RADIUS_L)
+    c1.set_filled(True)
+    gw.add(c1, cx - RADIUS_L, cy - RADIUS_L)
+
+    # White rectangle hiding right side
+    r1 = GRect(RADIUS_L, 2 * RADIUS_L)
+    r1.set_filled(True)
+    r1.set_color("white")
+    gw.add(r1, cx, cy - RADIUS_L)
+
+    # Medium black upper circle
+    c2 = GOval(2 * RADIUS_M, 2 * RADIUS_M)
+    c2.set_filled(True)
+    gw.add(c2, cx - RADIUS_M, cy - RADIUS_L)
+
+    # Medium white lower circle
+    c3 = GOval(2 * RADIUS_M, 2 * RADIUS_M)
+    c3.set_filled(True)
+    c3.set_color("white")
+    gw.add(c3, cx - RADIUS_M, cy)
+
+    # Small white upper circle
+    c4 = GOval(2 * RADIUS_S, 2 * RADIUS_S)
+    c4.set_filled(True)
+    c4.set_color("white")
+    gw.add(c4, cx - RADIUS_S, cy - RADIUS_M - RADIUS_S)
+
+    # Small black lower circle
+    c5 = GOval(2 * RADIUS_S, 2 * RADIUS_S)
+    c5.set_filled(True)
+    gw.add(c5, cx - RADIUS_S, cy + RADIUS_M - RADIUS_S)
+
+    # Outline circle
+    c6 = GOval(2 * RADIUS_L, 2 * RADIUS_L)
+    c6.set_line_width(3)
+    gw.add(c6, cx - RADIUS_L, cy - RADIUS_L)
+
+
+if __name__ == "__main__":
+    draw_yinyang()
+```
 
 ## Problem 2
 ::::::cols
