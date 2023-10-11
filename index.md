@@ -17,6 +17,7 @@ tracejs:
   - StampSim
 extrajs:
   - js/pgl.js
+content_url: https://github.com/rembold-cs151-master/Section06
 ---
 
 
@@ -168,9 +169,13 @@ if __name__ == "__main__":
 
 
 ## Possible Solution
-```{.mypython style='max-height:800px; font-size:.8em'}
+```{.mypython style='max-height:800px; font-size:.75em'}
 from pgl import GWindow, GRect, GOval
 import random
+
+GW_WIDTH = 800
+GW_HEIGHT = 600
+STAMP_SIZE = 50
 
 def random_color():
     color = "#"
@@ -186,24 +191,27 @@ def stamper():
         the mouse. 
         """
         mx, my = event.get_x(), event.get_y()
-        stamp.set_location(mx-25, my-25)
+        stamp.set_location(mx - STAMP_SIZE / 2, my - STAMP_SIZE / 2)
 
     def click_action(event):
         """ Stamps a new shape to the window. """
         mx, my = event.get_x(), event.get_y()
         if random.random() > 0.5:
-            shape = GOval(mx - 25, my - 25, 50, 50)
+            shape = GOval(mx - STAMP_SIZE / 2, my - STAMP_SIZE / 2,
+                          STAMP_SIZE, STAMP_SIZE)
         else:
-            shape = GRect(mx - 25, my - 25, 50, 50)
+            shape = GRect(mx - STAMP_SIZE / 2, my - STAMP_SIZE / 2,
+                          STAMP_SIZE, STAMP_SIZE)
         shape.set_filled(True)
         shape.set_color(random_color())
         gw.add(shape)
         # Need to add before can send backwards
         shape.send_backward()
 
-    gw = GWindow(600, 600)
+    gw = GWindow(GW_WIDTH, GW_HEIGHT)
 
-    stamp = GRect(-50, -50, 50, 50)
+    # Initially making off screen
+    stamp = GRect(-STAMP_SIZE, -STAMP_SIZE, STAMP_SIZE, STAMP_SIZE)
     stamp.set_filled(True)
     gw.add(stamp)
 
