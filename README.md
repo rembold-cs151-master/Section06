@@ -1,2 +1,2 @@
-# section_template
-A template file for generating slides and content for a section meeting
+# Section 06
+Materials for Section 06, concerning graphics and interactive graphics with mouse events.
