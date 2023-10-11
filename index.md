@@ -134,16 +134,18 @@ if __name__ == "__main__":
     draw_yinyang()
 ```
 
-## Problem 2
+## Problem 2 {data-state="StampSimTrace"}
 ::::::cols
 ::::col
-<video data-autoplay loop src="./images/stamping_demo.webm" />
+<!--<video data-autoplay loop src="./images/stamping_demo.webm" />-->
+<div id="StampCanvas" class="CTCanvas"
+     style="border:none; background-color:white; width:800px; height:800px;"></div>
 ::::
 
 ::::{.col style='flex-grow:1.5'}
 - Many graphical programs have a stamping tool, where clicking the mouse will "stamp" a shape onto the scene.
 - Often, it is useful to have the shape of the stamp follow the user's cursor, so that the user can line it up exactly as they choose.
-- In this problem, you want to recreate the animation to the left, where clicking stamps a random shape (circle or square) in a random color to the screen.
+- In this problem, you want to recreate the program to the left, where clicking stamps a random shape (circle or square) in a random color to the screen.
 
 ::::
 ::::::
@@ -160,17 +162,61 @@ if __name__ == "__main__":
 - The stamp should be centered on the cursor. How do you need to shift it to ensure this is so?
 - You have a few methods you can use to update the position of an object. Which will be most useful in this case?
 - You need to create a **new** object each time the stamp is clicked
-  - You can you ensure it is a circle 50% of the time and a square 50% of the time?
+  - How can you ensure it is a circle 50% of the time and a square 50% of the time?
   - How can you get it to be a random color?
   - When you add the new object to the window, it will appear on top of the stamp, which looks odd. How could you fix this?
 
 
+## Possible Solution
+```{.mypython style='max-height:800px; font-size:.8em'}
+from pgl import GWindow, GRect, GOval
+import random
+
+def random_color():
+    color = "#"
+    for _ in range(6):
+        color += random.choice("0123456789ABCDEF")
+    return color
+
+def stamper():
+
+    def move_action(event):
+        """
+        Updates the location of the stamp to track
+        the mouse. 
+        """
+        mx, my = event.get_x(), event.get_y()
+        stamp.set_location(mx-25, my-25)
+
+    def click_action(event):
+        """ Stamps a new shape to the window. """
+        mx, my = event.get_x(), event.get_y()
+        if random.random() > 0.5:
+            shape = GOval(mx - 25, my - 25, 50, 50)
+        else:
+            shape = GRect(mx - 25, my - 25, 50, 50)
+        shape.set_filled(True)
+        shape.set_color(random_color())
+        gw.add(shape)
+        # Need to add before can send backwards
+        shape.send_backward()
+
+    gw = GWindow(600, 600)
+
+    stamp = GRect(-50, -50, 50, 50)
+    stamp.set_filled(True)
+    gw.add(stamp)
+
+    gw.add_event_listener("mousemove", move_action)
+    gw.add_event_listener("mousedown", click_action)
+
+
+stamper()
+```
+
+
 ## <i class="fa-solid fa-trophy fa-beat"></i> Challenge!
-- Add a feature so that if the use clicks on previously stamped object, the color of that original object changes to some new random color
+- Add a feature so that if the user clicks on previously stamped object, the color of that original object changes to some new random color
 - In this case, a new object does **not** get created and added to the window. Only the color of the original shape is changed.
 
 
-## Test {data-state="StampSimTrace"}
-
-<div id="StampCanvas" class="CTCanvas"
-     style="border:none; background-color:white; width:100%; height:800px;"></div>
