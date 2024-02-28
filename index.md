@@ -1,7 +1,7 @@
 ---
 title: "Section 06: Interactive Graphics"
 author: Jed Rembold and Eric Roberts
-date: "Week of October 9th"
+date: "Week of February 26"
 slideNumber: true
 theme: monokai
 highlightjs-theme: monokai
@@ -65,6 +65,12 @@ content_url: https://github.com/rembold-cs151-master/Section06
      style="width:100px;"
      src="images/ResetControl.png"
      alt="ResetButton" />
+</td>
+<td>
+<img id=DrawYinYangToggleDotsButton
+     style="width:100px;"
+     src="images/ToggleDotsControl.png"
+     alt="ToggleDotsButton" />
 </td>
 </tr>
 </tbody>
